@@ -24,6 +24,11 @@ class Map
         $this->copyLevel();
     }
 
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
     public function reset(): void
     {
         Server::getInstance()->unloadLevel($this->getWorld());
