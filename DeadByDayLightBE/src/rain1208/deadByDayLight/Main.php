@@ -9,6 +9,7 @@ use rain1208\deadByDayLight\game\Game;
 use rain1208\deadByDayLight\listener\PlayerEventListener;
 use rain1208\deadByDayLight\map\Map;
 use rain1208\deadByDayLight\map\MapManager;
+use rain1208\deadByDayLight\resource\ResourceManager;
 use rain1208\deadByDayLight\skill\SkillManager;
 
 class Main extends PluginBase
@@ -18,6 +19,7 @@ class Main extends PluginBase
     private $configManager;
     private $mapManager;
     private $skillManager;
+    private $resourceManager;
 
     private $game;
 
@@ -52,6 +54,11 @@ class Main extends PluginBase
         return $this->skillManager;
     }
 
+    public function getResourceManager(): ResourceManager
+    {
+        return $this->resourceManager;
+    }
+
     public function getGeneratorCount():int
     {
         return $this->generatorCount;
@@ -60,6 +67,11 @@ class Main extends PluginBase
     public function createGame(Map $map): void
     {
         $this->game = new Game($map);
+    }
+
+    public function gameExists(): bool
+    {
+        return isset($this->game);
     }
 
     public function getGame(): Game
