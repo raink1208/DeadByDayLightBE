@@ -5,8 +5,6 @@ namespace rain1208\deadByDayLight\game;
 
 
 use pocketmine\scheduler\Task;
-use pocketmine\Server;
-use rain1208\deadByDayLight\game\Game;
 
 class GameTask extends Task
 {
@@ -23,19 +21,19 @@ class GameTask extends Task
 
     public function onRun(int $currentTick)
     {
-        if ($this->count%10 == 0) {
-            Server::getInstance()->broadcastMessage("$this->count");
-        }
-        if ($this->count >= 50) {
-            $this->game->endGame();
-        }
         $this->count++;
+        $this->checkPlayer();
     }
 
-    public function sendStatus()
+    public function checkPlayer()
     {
-        foreach (Server::getInstance()->getOnlinePlayers() as $player) {
-            $player;
+        if (count($this->game->getFlags()) <= 0) return;
+        foreach ($this->game->getFlags() as $player) {
+            foreach ($this->game->getGenerator() as $generator) {
+                if ($player->distance($generator) <= 1) {
+                    $generator->onActivate(0.5);
+                }
+            }
         }
     }
 }

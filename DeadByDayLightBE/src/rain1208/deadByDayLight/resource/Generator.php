@@ -3,9 +3,10 @@
 
 namespace rain1208\deadByDayLight\resource;
 
+use pocketmine\math\Vector3;
 use rain1208\deadByDayLight\Main;
 
-class Generator
+class Generator extends Vector3
 {
     private $flag = false;
     private $count;
@@ -17,5 +18,10 @@ class Generator
         if ($this->count >= Main::getInstance()->getGeneratorCount()) {
             $this->flag = true;
         }
+    }
+
+    public function getFlag(): bool
+    {
+        return $this->flag;
     }
 }
